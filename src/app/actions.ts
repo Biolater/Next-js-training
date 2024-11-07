@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import prisma from "./lib/db";
 
 export async function addUser(formData: FormData) {
   const name = formData.get("name");
@@ -14,4 +15,13 @@ export async function addUser(formData: FormData) {
   const newUser = await res.json();
   revalidatePath("/mockapi-users");
   console.log("newUser", newUser);
+}
+
+export async function addPost(formData: FormData) {
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  if (title && content) {
+    await prisma.post.create({ data: { title, content } });
+  }
+  revalidatePath("/posts");
 }
