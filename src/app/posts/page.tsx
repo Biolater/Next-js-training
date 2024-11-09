@@ -23,4 +23,5 @@ const Posts = async () => {
   );
 };
 
+
 export default Posts;
