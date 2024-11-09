@@ -1,5 +1,6 @@
 import prisma from "@/app/lib/db";
 import { addPost } from "../actions";
+import Link from "next/link";
 
 const Posts = async () => {
   const posts = await prisma.post.findMany();
@@ -13,15 +14,16 @@ const Posts = async () => {
       </form>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
-          </li>
+          <Link key={post.id} href={`/posts/${post.id}`}>
+            <li>
+              <h2>{post.title}</h2>
+              <p>{post.content}</p>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
   );
 };
-
 
 export default Posts;
