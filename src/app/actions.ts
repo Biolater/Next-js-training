@@ -34,3 +34,12 @@ export async function addPost(formData: FormData) {
   }
   revalidatePath("/posts");
 }
+
+export async function removePost(postId: string) {
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+  revalidatePath("/posts");
+}
