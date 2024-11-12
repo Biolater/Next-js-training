@@ -10,12 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Post {
   id        String   @id @default(cuid())
-  title     String
+  title     String   @map("post_title")
+  slug      String   @unique
   content   String
-  isPrivate Boolean? @default(false)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+
+  @@map("posts")
 }

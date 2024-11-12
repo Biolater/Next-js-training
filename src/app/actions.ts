@@ -20,8 +20,17 @@ export async function addUser(formData: FormData) {
 export async function addPost(formData: FormData) {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
+  const slug = content.split(" ").join("-");
   if (title && content) {
-    await prisma.post.create({ data: { title, content } });
+    try {
+      await prisma.post.create({ data: { title, content, slug } });
+    } catch (error) {
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : "An unknown error occurred while creating a post"
+      );
+    }
   }
   revalidatePath("/posts");
 }

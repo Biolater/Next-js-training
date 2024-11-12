@@ -14,7 +14,7 @@ const Posts = async () => {
       </form>
       <ul>
         {posts.map((post) => (
-          <Link key={post.id} href={`/posts/${post.id}`}>
+          <Link key={post.id} href={`/posts/${post.slug}`}>
             <li>
               <h2>{post.title}</h2>
               <p>{post.content}</p>
